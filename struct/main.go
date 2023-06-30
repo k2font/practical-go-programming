@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // struct
 type Person struct {
@@ -46,6 +48,8 @@ func main() {
 	// ポインタ型であれば値が変わる
 	t2.TestPointerFunc("b")
 	fmt.Println(t2)
+
+	r.Refrect()
 }
 
 // ファクトリー関数

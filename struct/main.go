@@ -49,7 +49,7 @@ func main() {
 	t2.TestPointerFunc("b")
 	fmt.Println(t2)
 
-	r.Refrect()
+	Reflect()
 }
 
 // ファクトリー関数

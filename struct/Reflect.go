@@ -10,7 +10,7 @@ type MapStruct struct {
 	StrPtr *string `map:"str"`
 }
 
-func Refrect() {
+func Reflect() {
 	src := map[string]string{
 		"str": "string data",
 	}

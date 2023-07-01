@@ -50,6 +50,7 @@ func main() {
 	fmt.Println(t2)
 
 	Reflect()
+	Pool()
 }
 
 // ファクトリー関数

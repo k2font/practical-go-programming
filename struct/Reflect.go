@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"reflect"
 )
 
@@ -24,10 +23,10 @@ func Reflect() {
 
 	var ms MapStruct
 	Decode(&ms, src) // srcのmap[string]stringをデコードしてMapStruct型のmsに格納する
-	log.Println(ms)
+	fmt.Printf("%+x\n", ms)
 }
 
-func Decode(target interface{}, src map[string]string) {
+func Decode(target interface{}, src map[string]string) error {
 	v := reflect.ValueOf(target)
 	e := v.Elem()
 	decode(e, src)
@@ -35,11 +34,19 @@ func Decode(target interface{}, src map[string]string) {
 
 // structの型が不明なので、reflectを使ってデコードする
 // これぞメタプログラミングみたいなコードになりそう
-func decode(e reflect.Value, src map[string]string) {
+func decode(e reflect.Value, src map[string]string) error {
 	t := e.Type()
-	fmt.Println(t)
+	// MapStruct構造体の型を1つずつ取得して処理する
+	// Str, StrPtr, Bool, BoolPtr, Int, IntPtrの順に処理
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
-		fmt.Println(f)
+		// 内部に埋め込まれた構造体は再帰処理する
+		if f.Anonymous {
+			if err := decode(e.Field(i), src); err != nil {
+				return err
+			}
+			continue
+		}
 	}
+	return nil
 }

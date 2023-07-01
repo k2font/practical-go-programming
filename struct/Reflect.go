@@ -17,9 +17,10 @@ type MapStruct struct {
 
 func Reflect() {
 	src := map[string]string{
-		"str":  "shoichiro",
-		"bool": "true",
-		"int":  "1",
+		"str":   "shoichiro",
+		"bool":  "true",
+		"int":   "1",
+		"int64": "32478170570532", // 変換先の構造体に存在しないフィールドは無視されるようになる(無視しないような処理も書ける)
 	}
 
 	// タグを使った構造体へのデータの書き込み処理

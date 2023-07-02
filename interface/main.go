@@ -19,6 +19,8 @@ func main() {
 	// デスクトップにアラートを出力
 	warn = &DesktopWarning{}
 	warn.Show("Hello World to Desktop")
+
+	AnyTest()
 }
 
 // すべての構造体の共通インターフェース

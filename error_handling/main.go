@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -13,8 +14,14 @@ var EOF = errors.New("EOF")
 func main() {
 	validate(0)
 
-	res, _ := ReadContents("https://example.com")
+	res, err := ReadContents("https://example.com")
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(string(res))
+
+	// スタックトレースを出力するテスト
+	StackTrace()
 }
 
 func validate(length int) error {
@@ -43,3 +50,7 @@ func ReadContents(url string) ([]byte, error) {
 
 	return io.ReadAll(res.Body)
 }
+
+// エラーを比較して条件分岐する場合は、errors.Is()かerrors.As()を用いる
+// if errors.Is(err, EOF) {}
+// if errors.As(err, &HTTPError) {}
